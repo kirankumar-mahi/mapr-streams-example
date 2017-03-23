@@ -1,0 +1,45 @@
+buildscript {
+    repositories {
+    	maven { url "http://repository.mapr.com/nexus/content/groups/mapr-public/" }
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.1.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+	maven { url "http://repository.mapr.com/nexus/content/groups/mapr-public/" }
+    mavenCentral()
+}
+
+jar {
+	baseName = 'live-mapr-streaming-producer'
+	version =  '0.1'
+}
+
+dependencies {
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter', version: '1.5.1.RELEASE'
+	compile group: 'com.google.guava', name: 'guava', version: '21.0'
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.7'
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.8.7'
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.7'
+	compile group: 'org.apache.kafka', name: 'kafka-clients', version: '0.9.0.0-mapr-1607'
+ 	compile group: 'com.mapr.streams', name: 'mapr-streams' , version: '5.2.0-mapr' 
+	
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+configurations.all {
+    exclude group: "org.slf4j", module: "slf4j-log4j12"
+    exclude group: "log4j", module: "log4j"
+}
